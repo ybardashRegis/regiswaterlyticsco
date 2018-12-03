@@ -15,15 +15,11 @@ rm(list=ls())
 - The purpose of this file is to explore the HB1051 data with emphasis on water leakage. The data can be found http://cowaterefficiency.com/unauthenticated_home with permission. Once in the portal, all report years (2013-2017) were selected as well as all water providers.
 - Section 1.0 is clean up, section 2.10 is analysis.
 
-- leak2.rmd & leak2.pdf -  The purpose of this file is to explore the HB1051 data with emphasis on water leakage. Files were merged to created water leakage reporting by water provider and year. Data is displayed graphically and recommendations are provided for cleaning up potential reporting errors. The .rmd contains the raw markdown file, the pdf is just a printed version of this.
-
-- ngrams.rmd & n.grams.pdf - The purpose of this file is to conduct text analysis on the leak_detection_field_technology column in the foundational_06a_loss_and_leak_detection file. Distributions of time between testing and age to replace small meters in years are shown. Recommendations for reporting are suggested to leverage this information. The .rmd file contains the raw markdown file, the pdf is just a printed version of this. 
-
 
 # 1.0 Reading in Data
 - The following files were used:
     + overview.csv
-    + normalizing_03_population.csv
+    + normalizing_03_population.csv   - was initially merged for population, but ultimately not used.
     + foundational_09_balance_data.csv
   
 ```{r}
