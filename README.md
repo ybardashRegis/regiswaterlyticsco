@@ -41,11 +41,11 @@ library(<package_name>)
 
 **Statistical Analysis Water Loss.R** - The purpose of this file is to analyze how AWWA policy adherence relates to water loss. Percent water loss was calculated for each municipality.  Once the data was cleaned for outliers a Wilcoxon Rank Sum test was performed on percent water loss versus municipalities that were AWWA policy adherence on their potable treated water.  We found that municipalities that were AWWA policy adherent had significantly more percent water loss than municipalities that were not AWWA policy adherence.
 
-**waterByCity.rmd** & **waterByCity.pdf** - The purpose of this file is to explore the HB 1051 data with an emphasis on population and water production projections. Files were merged to create datasets of with population and water production in one place, separated by water type (i.e. potable, non-potable raw, and non-potable reuse). A linear model was fit to potable water production based on populatio nserved. Population data by county/municipality was also used to create population projections by county until the year 2050. These population projections were used to anticipate necessary potable water production per county until the year 2050. This report uses overview.csv, normalizing_03_population.csv, water_use_02_production.csv, & [Historical Cencus Data](https://demography.dola.colorado.gov/population/data/historical_census/)
+**waterByCity.rmd** & **waterByCity.pdf** - The purpose of this file is to explore the HB 1051 data with an emphasis on population and water production projections. Files were merged to create datasets of with population and water production in one place, separated by water type (i.e. potable, non-potable raw, and non-potable reuse). A linear model was fit to potable water production based on populatio nserved. Population data by county/municipality was also used to create population projections by county until the year 2050. These population projections were used to anticipate necessary potable water production per county until the year 2050. This report uses overview.csv, normalizing_03_population.csv, water_use_02_production.csv, & [Historical Census Data](https://demography.dola.colorado.gov/population/data/historical_census/)
 
 ## Built With
 
-* [RStudio](https://www.rstudio.com/) - The IDE used to generate analyze all data and generate R Markdown files
+* [RStudio](https://www.rstudio.com/) - The IDE used to analyze all data and generate R Markdown files
 
 ## Authors
 
