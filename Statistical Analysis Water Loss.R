@@ -14,7 +14,7 @@ summary(dt)
 loss <- dt[, .(dt$ce_annual_ndx, dt$water_type_index, dt$water_type, dt$dwater, dt$mwater, dt$lwater)]
 colnames(loss) <- c('ce_annual_ndx', 'water_type_index', 'water_type', 'dwater', 'mwater', 'lwater')
 
-#Only select the Potable Treated water.  
+#Only select the Desired water.  
 t <- loss[loss$water_type == watertype]
 
 # Import foundational_06a data
@@ -48,7 +48,6 @@ ai <- ai[ai$water_type == watertype]
 total <- right_join(total, ai, by = c("ce_annual_ndx"))
 
 # Percapita usage of water based on thousands of gallons
-total$n <- total$lwater/total$dwater #Total$n = foundational_09_balance_data loss data converted to thousands of gallons divided by population served
 total$b <- total$calctotal/total$dwater #Total$b = foundational_08_audit_data.csv data converted to thousands of gallons divided by population served
 
 #Box Plots
@@ -57,18 +56,12 @@ boxplot(total$b)
 boxplot(total$calctotal)
 
 # Percapita usage vs awwa policy adherence
-
 boxplot(total$b[total$awwa_policy_adherence == 'YES'])
 boxplot(total$b[total$awwa_policy_adherence == 'NO'])
 
 
 # Remove outliers and replot
-total <- total[total$n < 6000, ]
-total <- total[total$b < 100, ]
-
-boxplot(total$n[total$awwa_policy_adherence == 'YES'])
-boxplot(total$n[total$awwa_policy_adherence == 'NO'])
-
+total <- total[total$b < 1, ]
 boxplot(total$b[total$awwa_policy_adherence == 'YES'])
 boxplot(total$b[total$awwa_policy_adherence == 'NO'])
 
@@ -79,12 +72,10 @@ total <- total[!grepl("N/A", total$awwa_policy_adherence),]
 total$awwa_policy_adherence <- as.factor(total$awwa_policy_adherence)
 
 # Check for normality
-shapiro.test(total$n)
 shapiro.test(total$b)
 # Data is not normally distributed because P < 0.05
 
 # Wicox.test to see if significant difference between data.
-wilcox.test(total$n ~ total$awwa_policy_adherence)
 wilcox.test(total$b ~ total$awwa_policy_adherence)
 boxplot(total$b ~ total$awwa_policy_adherence, xlab = 'AWWA_Adherence', ylab = 'Percent_Water_Loss')
 # There is a significant difference
