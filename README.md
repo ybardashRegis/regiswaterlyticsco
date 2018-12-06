@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-[ArcGIS](https://www.arcgis.com/index.html) - for COWaterStations_v2.mxd to generate map visualzations
+[ArcGIS](https://www.arcgis.com/index.html) - used to generate map visualzations
 
 [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
 
