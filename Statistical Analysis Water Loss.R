@@ -5,11 +5,12 @@ library(ggplot2)
 library(rlist)
 library(lubridate)
 
+#Select Which water type you want to analyse: 'Potable Treated', 'Non-potable Raw', 'Non-potable Re-use'
 watertype <- 'Potable Treated'
 
 #This is the foundational_09_balance_data.csv converted to thousands of gallonds
-dt <- fread('C:/Users/ksorauf/OneDrive - Regis University/Gocode/waterloss.csv')
-summary(dt)
+dt <- fread('C:/Users/ksorauf/OneDrive - Regis University/Gocode/Code and Data/waterloss.csv')
+
 #Select the columns I want to use and rename them
 loss <- dt[, .(dt$ce_annual_ndx, dt$water_type_index, dt$water_type, dt$dwater, dt$mwater, dt$lwater)]
 colnames(loss) <- c('ce_annual_ndx', 'water_type_index', 'water_type', 'dwater', 'mwater', 'lwater')
@@ -18,13 +19,13 @@ colnames(loss) <- c('ce_annual_ndx', 'water_type_index', 'water_type', 'dwater',
 t <- loss[loss$water_type == watertype]
 
 # Import foundational_06a data
-df <- fread('C:/Users/ksorauf/OneDrive - Regis University/Gocode/EffDataPortal_Output_User690_20181116204803/foundational/foundational_06a_loss_and_leak_det.csv')
+df <- fread('C:/Users/ksorauf/OneDrive - Regis University/Gocode/Code and Data/foundational_06a_loss_and_leak_det.csv')
 
 #Join df with t by "ce_annual_ndx"
 total <- right_join(df, t, by = c("ce_annual_ndx"))
 
 # Import normalizing_03_population data
-p <- fread('C:/Users/ksorauf/OneDrive - Regis University/Gocode/EffDataPortal_Output_User690_20181116204803/normalizing/normalizing_03_population.csv')
+p <- fread('C:/Users/ksorauf/OneDrive - Regis University/Gocode/Code and Data/normalizing_03_population.csv')
 
 # Join total with t by "ce_annual_ndx"
 total <- right_join(total, p, by = c("ce_annual_ndx"))
@@ -39,7 +40,7 @@ bt <- bt[bt$water_type == watertype]
 total <- right_join(total, bt, by = c("ce_annual_ndx"))
 
 # Import data
-ai <- fread('C:/Users/ksorauf/OneDrive - Regis University/Gocode/EffDataPortal_Output_User690_20181116204803/foundational/foundational_07_audit_info.csv')
+ai <- fread('C:/Users/ksorauf/OneDrive - Regis University/Gocode/Code and Data/foundational_07_audit_info.csv')
 
 #Selecting on the 'Potable Treated water only'
 ai <- ai[ai$water_type == watertype]
@@ -61,7 +62,7 @@ boxplot(total$b[total$awwa_policy_adherence == 'NO'])
 
 
 # Remove outliers and replot
-total <- total[total$b < 1, ]
+total <- total[total$b < 0.9, ]
 boxplot(total$b[total$awwa_policy_adherence == 'YES'])
 boxplot(total$b[total$awwa_policy_adherence == 'NO'])
 
@@ -77,7 +78,7 @@ shapiro.test(total$b)
 
 # Wicox.test to see if significant difference between data.
 wilcox.test(total$b ~ total$awwa_policy_adherence)
-boxplot(total$b ~ total$awwa_policy_adherence, xlab = 'AWWA_Adherence', ylab = 'Percent_Water_Loss')
+boxplot(total$b ~ total$awwa_policy_adherence, xlab = 'AWWA Adherence', ylab = 'Percent Water Loss', main = 'Potable Treated Water')
 # There is a significant difference
 
 
